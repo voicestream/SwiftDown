@@ -4,11 +4,11 @@
 //
 //  Created by Quentin Eude on 10/03/2021.
 //
-import Down
+
 #if os(iOS)
-import UIKit
+  import UIKit
 #elseif os(macOS)
-import AppKit
+  import AppKit
 #endif
 
 public struct Theme {
@@ -25,8 +25,7 @@ public struct Theme {
   var backgroundColor: UniversalColor = UniversalColor.clear
   var tintColor: UniversalColor = UniversalColor.blue
   var cursorColor: UniversalColor = UniversalColor.blue
-  public var data: [String: Any] = [:]
-  public var styles: [MarkdownNode.MarkdownType: Style]
+  var styles: [MarkdownNode.MarkdownType: Style] = [:]
 
   public init(_ name: String) {
     self.init()
@@ -49,7 +48,6 @@ public struct Theme {
   }
 
   public init() {
-    self.styles = [:]
     MarkdownNode.MarkdownType.allCases.forEach { type in
       styles[type] = Style()
     }
@@ -147,21 +145,6 @@ public struct Theme {
 
     return nil
   }
-
-  // MARK: - DownStyler
-//    public func getDownFont(for: style: MarkdownNode.MarkdownType) -> DownFont {
-//        return DownFont(name: "menlo", size: 18)
-//    }
-
-    public func toDownStyler() -> DownStyler {
-
-        let downStylerConfiguration = DownStylerConfiguration(
-            fonts: StaticFontCollection(
-                heading1: DownFont(name: "menlo", size: 27) ?? .boldSystemFont(ofSize: 38)
-            )
-        )
-        return DownStyler(configuration: downStylerConfiguration)
-    }
 
   // MARK: - Static methods
   static func applyMarkdown(markdown: MarkdownNode, with theme: Theme) -> [NSAttributedString.Key:
