@@ -93,18 +93,18 @@ struct MarkdownRepresentable: UIViewRepresentable {
     //    }
 }
 
-struct SwiftDownViewer: View {
+public struct SwiftDownViewer: View {
     @ObservedObject private var markdownObject: MarkdownObservable
     private var markdownString: String
     
     @State private var height: CGFloat = .zero
     
-    init(text: String) {
+    public init(text: String) {
         self.markdownString = text
         self.markdownObject = MarkdownObservable(text: text)
     }
     
-    var body: some View {
+    public var body: some View {
         VStack(alignment: .leading) {
             ScrollView {
                 MarkdownRepresentable(height: $height)
