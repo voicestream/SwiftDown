@@ -4,7 +4,11 @@
 //  Based on an implementation by Mikhail Ivanov on 01.06.2021.
 //
 import SwiftUI
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 import Down
 
 class MarkdownObservable: ObservableObject {

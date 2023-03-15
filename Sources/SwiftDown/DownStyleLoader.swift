@@ -20,41 +20,34 @@ public class DownStyleLoader {
     var fontColorMap: [String: String] = [:]
     var styler: DownStyler? = nil
 
-    public init(scheme: ColorScheme) {
+    convenience init(scheme: ColorScheme) {
+        var themeName = "default-light"
         switch scheme {
         case .dark:
-            self.name = "default-dark"
+            themeName = "default-dark"
         case .light:
-            self.name = "default-light"
+            themeName = "default-light"
         @unknown default:
-            self.name = "default-light"
+            themeName = "default-light"
         }
-        self.reload(name: self.name)
+        self.init(name: themeName)
     }
 
     public init(name: String) {
         self.name = name
-        self.reload(name: name)
-    }
-
-    func reload(name: String) {
         if let path = getPath(name) {
             self.styles = self.loadStyles(path)
             self.splitStylesDict()
-            self.styler = self.getDownStyler()
         } else {
             assertionFailure()
         }
     }
     
     func getPath(_ name: String) -> String? {
-        if let path = Bundle.module.path(
-            forResource: "Themes/\(name)",
-            ofType: "json"
-        ) {
-            return path
+        if let url = Bundle.module.url(forResource: "Themes/\(name)", withExtension: "json") {
+            return url.path
         } else {
-            print("Template `\(name)` not found.")
+            print("Resource `\(name)` not found.")
             return nil
         }
     }
@@ -166,10 +159,7 @@ public class DownStyleLoader {
     }
     
     func getDownStyler() -> DownStyler {
-        if self.styler == nil {
-            self.reload(name: self.name)
-        }
-        return self.styler!
+        return DownStyler(configuration: getDownStylerConfiguration())
     }
 }
 
