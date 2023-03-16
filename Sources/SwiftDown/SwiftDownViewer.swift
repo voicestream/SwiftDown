@@ -11,63 +11,48 @@ import AppKit
 #endif
 import Down
 
-class MarkdownObservable: ObservableObject {
-    @Published public var textView = UITextView()
-    public let text: String
-    
-    init(text: String) {
-        self.text = text
-    }
-}
-
 struct MarkdownRepresentable: UIViewRepresentable {
     @Environment(\.colorScheme) var colorScheme
     @Binding var dynamicHeight: CGFloat
-    @EnvironmentObject var markdownObject: MarkdownObservable
-    
+    var markdown: String
+    var styler: DownStyler
     @State var test: Int = 0
-    
-    init(height: Binding<CGFloat>) {
+
+    init(markdown: String, height: Binding<CGFloat>, styler: DownStyler) {
         self._dynamicHeight = height
+        self.markdown = markdown
+        self.styler = styler
+        print(styler.colors)
     }
-    
-    
+
     // TODO: As soon as PR: 258 is accepted - you need to uncomment
     //    func makeCoordinator() -> Cordinator {
     //        Cordinator(text: markdownObject.textView)
     //    }
     
-    func makeUIView(context: Context) -> UITextView {
-        
-        let down = Down(markdownString: markdownObject.text)
-        
+    func makeUIView(context: Context) -> TextView {
+        let downView = DownTextView(frame: .zero, styler: styler)
+        downView.text = self.markdown
         // TODO: As soon as PR: 258 is accepted - you need to uncomment
         //        let attributedText = try? down.toAttributedString(styler: DownStyler(delegate: context.coordinator))
-        
-        let attributedText = try? down.toAttributedString(
-            styler: loadDownStyler(colorScheme == .dark ? .defaultDark : .defaultLight)
-        )
-        markdownObject.textView.attributedText = attributedText
-        markdownObject.textView.attributedText = attributedText
-        markdownObject.textView.textAlignment = .left
-        markdownObject.textView.isScrollEnabled = false
-        markdownObject.textView.isUserInteractionEnabled = true
-        markdownObject.textView.showsVerticalScrollIndicator = false
-        markdownObject.textView.showsHorizontalScrollIndicator = false
-        markdownObject.textView.isEditable = false
-        markdownObject.textView.backgroundColor = .clear
-        
-        markdownObject.textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        markdownObject.textView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        
-        return markdownObject.textView
+        downView.textAlignment = .left
+        downView.isScrollEnabled = false
+        downView.showsVerticalScrollIndicator = false
+        downView.showsHorizontalScrollIndicator = false
+        downView.isEditable = false
+        downView.backgroundColor = .clear
+        downView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        downView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+
+//        return markdownObject.textView
+        return downView
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
         DispatchQueue.main.async {
             /// Allows you to change the color of the text when switching the device theme.
             /// I advise you to do it in the future through the configuration when setting up your own Styler class
-            uiView.textColor = colorScheme == .dark ? UIColor.white : UIColor.black
+//            uiView.textColor = colorScheme == .dark ? UIColor.white : UIColor.black
             
             dynamicHeight = uiView.sizeThatFits(CGSize(width: uiView.bounds.width,
                                                        height: CGFloat.greatestFiniteMagnitude))
@@ -98,22 +83,21 @@ struct MarkdownRepresentable: UIViewRepresentable {
 }
 
 public struct SwiftDownViewer: View {
-    @ObservedObject private var markdownObject: MarkdownObservable
+
     private var markdownString: String
-    
+    var styler: DownStyler
     @State private var height: CGFloat = .zero
     
-    public init(text: String) {
+    public init(text: String, scheme: ColorScheme) {
         self.markdownString = text
-        self.markdownObject = MarkdownObservable(text: text)
+        self.styler = loadDefaultDownStyler(scheme)
     }
     
     public var body: some View {
         VStack(alignment: .leading) {
-            ScrollView {
-                MarkdownRepresentable(height: $height)
+            ScrollView(showsIndicators: false) {
+                MarkdownRepresentable(markdown: markdownString, height: $height, styler: self.styler)
                     .frame(height: height)
-                    .environmentObject(markdownObject)
             }
         }
         .navigationBarTitleDisplayMode(.inline)

@@ -1,9 +1,5 @@
 {
     "name": "Default Light",
-    "author": {
-        "name": "Quentin Eude",
-        "email": "quentineude@gmail.com"
-    },
     "version": "1.0",
     "variables": {
         "boldFont": "not implemented yet"
@@ -15,56 +11,78 @@
     },
     "styles": {
         "h1": {
-            "color": "#C96667",
-            "size": 23
+            "font": "HelveticaNeue-Bold",
+            "color": "#000000",
+            "size": 36
         },
         "h2": {
-            "color": "#C96667",
-            "size": 20
+            "font": "HelveticaNeue-Bold",
+            "color": "#000000",
+            "size": 28
         },
         "h3": {
-            "color": "#C96667",
-            "size": 18
+            "font": "HelveticaNeue-Bold",
+            "color": "#000000",
+            "size": 20
         },
         "h4": {
-            "color": "#C96667"
+            "font": "HelveticaNeue-Bold",
+            "color": "#000000",
+            "size": 18
         },
         "h5": {
-            "color": "#C96667"
+            "font": "HelveticaNeue-SemiBold",
+            "color": "#000000",
+            "size": 16
         },
         "h6": {
-            "color": "#C96667"
+            "font": "HelveticaNeue-Italic",
+            "color": "#000000",
+            "size": 15,
         },
         "body": {
-            "font": "Menlo-Regular",
+            "font": "HelveticaNeue",
             "size": 15,
-            "color": "#252628"
+            "color": "#000000"
         },
         "bold": {
-            "font": "Menlo-Bold",
-            "color": "#DC9364"
+            "font": "HelveticaNeue-Bold",
+            "color": "#c60808"
         },
         "italic": {
-            "font": "Menlo-Italic",
-            "color": "#B195BA"
+            "font": "HelveticaNeue-Italic",
+            "color": "#ffa41d"
         },
         "link": {
-            "color": "#a66bff"
+            "font": "HelveticaNeue",
+            "color": "#00B698"
         },
         "image": {
             "color": "#a66bff"
         },
         "inlineCode": {
-            "color": "#A3A5A8"
+            "font": "CourierNew",
+            "color": "#000000",
+            "size": 15
         },
         "codeBlock": {
-            "color": "#A3A5A8"
+            "font": "CourierNew",
+            "color": "#00B698",
+            "size": 15
         },
         "blockQuote": {
-            "color": "#1CBD47"
+            "font": "HelveticaNeue",
+            "color": "#838383"
         },
         "list": {
-            "color": "#A3A5A8"
+            "font": "HelveticaNeue",
+            "color": "#838383"
+        },
+        "quoteStripe": {
+            "color": "#00B698"
+        },
+        "codeBlockBackground": {
+            "color": "#e9e9e9"
         }
     }
 }

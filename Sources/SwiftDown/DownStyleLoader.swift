@@ -17,7 +17,7 @@ public class DownStyleLoader {
     var styles: [String : [String : AnyObject]] = [:]
     var fontNameMap: [String: String] = [:]
     var fontSizeMap: [String: CGFloat] = [:]
-    var fontColorMap: [String: String] = [:]
+    var colors: [String: String] = [:]
     var styler: DownStyler? = nil
 
     convenience init(scheme: ColorScheme) {
@@ -86,11 +86,17 @@ public class DownStyleLoader {
                 self.fontSizeMap[mdTypeString] = CGFloat(15.0)
             }
             if let fontColor = self.styles[mdTypeString]?["color"] as? String {
-                self.fontColorMap[mdTypeString] = fontColor
+                self.colors[mdTypeString] = fontColor
             } else {
-                self.fontColorMap[mdTypeString] = "#FFFFFF"
+                self.colors[mdTypeString] = "#FFFFFF"
             }
         })
+        // Process some additional styles for the viewer.
+        for key in ["quoteStripe", "codeBlockBackground", "listItemPrefix"] {
+            if let color = self.styles[key]?["color"] as? String {
+                self.colors[key] = color
+            }
+        }
     }
     
     func getFontCollection() -> StaticFontCollection {
@@ -107,35 +113,35 @@ public class DownStyleLoader {
         )
     }
     
-    func getColorCollection() -> StaticColorCollection {
+    func getColorCollection() -> ColorCollection {
         return StaticColorCollection(
-            heading1: UniversalColor(hexString: self.fontColorMap["h1"]!),
-            heading2: UniversalColor(hexString: (self.fontColorMap["h2"]! )),
-            heading3: UniversalColor(hexString: (self.fontColorMap["h3"]! )),
-            heading4: UniversalColor(hexString: (self.fontColorMap["h4"]! )),
-            heading5: UniversalColor(hexString: self.fontColorMap["h5"]! ),
-            heading6: UniversalColor(hexString: self.fontColorMap["h6"]! ),
-            body: UniversalColor(hexString: self.fontColorMap["body"]! ),
-            code: UniversalColor(hexString: self.fontColorMap["inlineCode"]! ),
-            link: UniversalColor(hexString: self.fontColorMap["link"]! ),
-            quote: UniversalColor(hexString: self.fontColorMap["blockQuote"]! ),
-            //            quoteStripe: UniversalColor(hexString: self.fontColorMap["blockQuote"]!),
-            //            thematicBreak: UniversalColor(hexString: self.fontColorMap[""]!),
-            listItemPrefix: UniversalColor(hexString: self.fontColorMap["list"]! )
-            //            codeBlockBackground: UniversalColor(hexString: self.fontColorMap["body"]!)
+            heading1: UniversalColor(hexString: self.colors["h1"]!),
+            heading2: UniversalColor(hexString: (self.colors["h2"]! )),
+            heading3: UniversalColor(hexString: (self.colors["h3"]! )),
+            heading4: UniversalColor(hexString: (self.colors["h4"]! )),
+            heading5: UniversalColor(hexString: self.colors["h5"]! ),
+            heading6: UniversalColor(hexString: self.colors["h6"]! ),
+            body: UniversalColor(hexString: self.colors["body"]! ),
+            code: UniversalColor(hexString: self.colors["inlineCode"]! ),
+            link: UniversalColor(hexString: self.colors["link"]! ),
+            quote: UniversalColor(hexString: self.colors["blockQuote"]! ),
+            quoteStripe: UniversalColor(hexString: self.colors["quoteStripe"] ?? self.colors["blockQuote"]!),
+//            thematicBreak: UniversalColor(hexString: self.fontColorMap[""]!),
+            listItemPrefix: UniversalColor(hexString: self.colors["list"] ?? self.colors["body"]!),
+            codeBlockBackground: UniversalColor(hexString: self.colors["codeBlockBackground"] ?? "gray")
         )
     }
     
-    func getParagraphStyle() -> StaticParagraphStyleCollection {
-        return StaticParagraphStyleCollection()
+    func getParagraphStyle() -> ParagraphStyleCollection {
+        return CustomParagraphStyleCollection()
     }
     
     func getListItemOptions() -> ListItemOptions {
-        return ListItemOptions()
+        return ListItemOptions(maxPrefixDigits: 2, spacingAfterPrefix: 2, spacingAbove: 2, spacingBelow: 2)
     }
     
     func getQuoteStripeOptions() -> QuoteStripeOptions {
-        return QuoteStripeOptions()
+        return QuoteStripeOptions(thickness: 4, spacingAfter: 12)
     }
     
     func getThematicBreakOptions() -> ThematicBreakOptions {
@@ -143,7 +149,7 @@ public class DownStyleLoader {
     }
     
     func getCodeBlockOptions() -> CodeBlockOptions {
-        return CodeBlockOptions()
+        return CodeBlockOptions(containerInset: 16)
     }
     
     func getDownStylerConfiguration() -> DownStylerConfiguration {
@@ -169,6 +175,20 @@ public func loadDownStyler(_ theme: Theme.BuiltIn) -> DownStyler {
         let loader = DownStyleLoader(name: "default-dark")
         return loader.getDownStyler()
     case .defaultLight:
+        let loader = DownStyleLoader(name: "default-light")
+        return loader.getDownStyler()
+    }
+}
+
+public func loadDefaultDownStyler(_ scheme: ColorScheme) -> DownStyler {
+    switch scheme {
+    case .dark:
+        let loader = DownStyleLoader(name: "default-dark")
+        return loader.getDownStyler()
+    case .light:
+        let loader = DownStyleLoader(name: "default-light")
+        return loader.getDownStyler()
+    @unknown default:
         let loader = DownStyleLoader(name: "default-light")
         return loader.getDownStyler()
     }
