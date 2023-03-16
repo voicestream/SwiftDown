@@ -28,7 +28,17 @@ public struct SwiftDownEditor: UIViewRepresentable {
     
     public var onTextChange: (String) -> Void = { _ in }
     let engine = MarkdownEngine()
-    
+
+    public init(
+        text: Binding<String>,
+        scheme: ColorScheme,
+        onTextChange: @escaping (String) -> Void = { _ in }
+    ) {
+        _text = text
+        self.onTextChange = onTextChange
+        self.theme = Theme(scheme == .dark ? "default-dark" : "default-light")
+    }
+
     public init(
         text: Binding<String>,
         themeName: String,

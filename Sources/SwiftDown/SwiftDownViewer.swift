@@ -22,7 +22,6 @@ struct MarkdownRepresentable: UIViewRepresentable {
         self._dynamicHeight = height
         self.markdown = markdown
         self.styler = styler
-        print(styler.colors)
     }
 
     // TODO: As soon as PR: 258 is accepted - you need to uncomment

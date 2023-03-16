@@ -56,10 +56,9 @@ struct ContentView: View {
     var body: some View {
         VStack {
             if isEditing {
-                SwiftDownEditor(text: $noteText, themeName: colorScheme == .dark ? "default-dark" : "default-light")
+                SwiftDownEditor(text: $noteText, scheme: colorScheme)
                     .padding()
             } else {
-//                Text(noteText)
                 SwiftDownViewer(text: noteText, scheme: colorScheme)
                     .padding()
             }
