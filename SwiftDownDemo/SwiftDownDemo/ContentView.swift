@@ -59,7 +59,7 @@ struct ContentView: View {
                 SwiftDownEditor(text: $noteText, scheme: colorScheme)
                     .padding()
             } else {
-                SwiftDownViewer(text: noteText, scheme: colorScheme)
+                SwiftDownViewer(text: noteText)
                     .padding()
             }
             Button(isEditing ? "Save" : "Edit") {
