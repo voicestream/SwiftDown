@@ -134,19 +134,31 @@ public struct SwiftDownEditor: NSViewRepresentable {
             onTextChange(text)
         }
     }
-    
+    @Environment(\.colorScheme) var colorScheme
     private(set) var isEditable: Bool = true
-    private(set) var theme: Theme = Theme.BuiltIn.defaultDark.theme()
+    private(set) var theme: Theme
     private(set) var insetsSize: CGFloat = 0
     
     public var onTextChange: (String) -> Void = { _ in }
-    
+
     public init(
         text: Binding<String>,
+        scheme: ColorScheme,
         onTextChange: @escaping (String) -> Void = { _ in }
     ) {
         _text = text
         self.onTextChange = onTextChange
+        self.theme = Theme(scheme == .dark ? "default-dark" : "default-light")
+    }
+
+    public init(
+        text: Binding<String>,
+        themeName: String = "default-light",
+        onTextChange: @escaping (String) -> Void = { _ in }
+    ) {
+        _text = text
+        self.onTextChange = onTextChange
+        self.theme = Theme(themeName)
     }
     
     public func makeNSView(context: Context) -> SwiftDown {
