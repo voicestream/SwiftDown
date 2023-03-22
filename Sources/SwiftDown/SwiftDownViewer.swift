@@ -21,14 +21,14 @@ struct MarkdownRepresentable: ViewRepresentable {
         let styler = loadDefaultDownStyler(context.environment.colorScheme)
         let downView = DownTextView(frame: .zero, styler: styler)
         downView.text = self.markdown
-        downView.textAlignment = .left
+        downView.textAlignment = NSTextAlignment.left
         downView.isScrollEnabled = true
         downView.showsVerticalScrollIndicator = false
         downView.showsHorizontalScrollIndicator = false
         downView.isEditable = false
         downView.backgroundColor = UIColor.clear
-        downView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        downView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        downView.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
+        downView.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
         return downView
     }
 
@@ -44,8 +44,8 @@ struct MarkdownRepresentable: ViewRepresentable {
         downView.string = self.markdown
         downView.isEditable = false
         downView.backgroundColor = NSColor.clear
-        downView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        downView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        downView.setContentCompressionResistancePriority(NSLayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
+        downView.setContentCompressionResistancePriority(NSLayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
         return downView
     }
 
