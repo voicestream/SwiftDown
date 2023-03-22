@@ -11,14 +11,14 @@ import SwiftDown
 
 struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
-    @State private var isEditing = false
-    @State private var noteText = """
+    @State var isEditing = false
+    @State var noteText = """
     # My Note Title
     
     This is the body of my note. It can contain **bold** and *italic* text, as well as other Markdown formatting like links and images.
+    Here follows a meta-quote.
     
     > This quote is amazing
-
 
     ## Examples
     In this section, we show the following examples:
@@ -66,7 +66,7 @@ struct ContentView: View {
                 isEditing.toggle()
             }
         }
-        .navigationTitle("Note")
+        .background(colorScheme == .light ? .white :  Color(red: 20/255, green: 17/255, blue: 35/255))
     }
 }
 
