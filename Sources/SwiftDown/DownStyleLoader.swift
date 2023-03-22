@@ -92,7 +92,7 @@ public class DownStyleLoader {
             }
         })
         // Process some additional styles for the viewer.
-        for key in ["quoteStripe", "codeBlockBackground", "listItemPrefix"] {
+        for key in ["quoteStripe", "codeBlockBackground", "listItemPrefix", "thematicBreak"] {
             if let color = self.styles[key]?["color"] as? String {
                 self.colors[key] = color
             }
@@ -109,7 +109,7 @@ public class DownStyleLoader {
             heading6: DownFont(name: self.fontNameMap["h6"]!, size: self.fontSizeMap["h6"]!) ?? .boldSystemFont(ofSize: 18),
             body: DownFont(name: self.fontNameMap["body"]!, size: self.fontSizeMap["body"]!) ?? .systemFont(ofSize: 17),
             code: DownFont(name: self.fontNameMap["inlineCode"]!, size: self.fontSizeMap["inlineCode"]!) ?? .monospacedSystemFont(ofSize: 17, weight: .regular),
-            listItemPrefix: DownFont(name: self.fontNameMap["list"]!, size: self.fontSizeMap["list"]!) ?? .monospacedDigitSystemFont(ofSize: 17, weight: .regular)
+            listItemPrefix: DownFont(name: self.fontNameMap["list"]!, size: self.fontSizeMap["list"]!) ?? .systemFont(ofSize: 17)
         )
     }
     
@@ -126,8 +126,8 @@ public class DownStyleLoader {
             link: UniversalColor(hexString: self.colors["link"]! ),
             quote: UniversalColor(hexString: self.colors["blockQuote"]! ),
             quoteStripe: UniversalColor(hexString: self.colors["quoteStripe"] ?? self.colors["blockQuote"]!),
-//            thematicBreak: UniversalColor(hexString: self.fontColorMap[""]!),
-            listItemPrefix: UniversalColor(hexString: self.colors["list"] ?? self.colors["body"]!),
+            thematicBreak: UniversalColor(hexString: self.colors["thematicBreak"]!),
+            listItemPrefix: UniversalColor(hexString: self.colors["body"]!),
             codeBlockBackground: UniversalColor(hexString: self.colors["codeBlockBackground"] ?? "gray")
         )
     }
@@ -137,7 +137,7 @@ public class DownStyleLoader {
     }
     
     func getListItemOptions() -> ListItemOptions {
-        return ListItemOptions(maxPrefixDigits: 2, spacingAfterPrefix: 2, spacingAbove: 2, spacingBelow: 2)
+        return ListItemOptions(maxPrefixDigits: 2, spacingAfterPrefix: 8, spacingAbove: 2, spacingBelow: 2)
     }
     
     func getQuoteStripeOptions() -> QuoteStripeOptions {
@@ -145,7 +145,7 @@ public class DownStyleLoader {
     }
     
     func getThematicBreakOptions() -> ThematicBreakOptions {
-        return ThematicBreakOptions()
+        return ThematicBreakOptions(thickness: 2)
     }
     
     func getCodeBlockOptions() -> CodeBlockOptions {
