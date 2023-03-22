@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import SwiftDown
 
 @main
 struct SwiftDownDemoApp: App {
+    @Environment(\.colorScheme) var colorScheme
+    init() {
+        FontManager.registerFonts()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

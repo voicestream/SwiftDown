@@ -38,7 +38,7 @@ public struct CustomParagraphStyleCollection: ParagraphStyleCollection {
         h6ParagraphSpacingBefore: CGFloat = 8,
         bodyParagraphSpacing: CGFloat = 4,
         bodyParagraphSpacingBefore: CGFloat = 4,
-        bodyLineSpacing: CGFloat = 1.3,
+        bodyLineSpacing: CGFloat = 3,
         codeParagraphSpacing: CGFloat = 8,
         codeParagraphSpacingBefore: CGFloat = 8
     ) {
@@ -63,6 +63,7 @@ public struct CustomParagraphStyleCollection: ParagraphStyleCollection {
         let bodyStyle = NSMutableParagraphStyle()
         bodyStyle.paragraphSpacing = bodyParagraphSpacing
         bodyStyle.paragraphSpacingBefore = bodyParagraphSpacingBefore
+        bodyStyle.lineSpacing = bodyLineSpacing
         let codeStyle = NSMutableParagraphStyle()
         codeStyle.paragraphSpacing = codeParagraphSpacing
         codeStyle.paragraphSpacingBefore = codeParagraphSpacingBefore

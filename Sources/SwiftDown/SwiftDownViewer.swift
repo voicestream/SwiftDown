@@ -14,21 +14,21 @@ typealias ViewRepresentable = NSViewRepresentable
 import Down
 
 struct MarkdownRepresentable: ViewRepresentable {
-    @Binding var markdown: String
+    var markdown: String
 
 #if os(iOS)
     func makeUIView(context: Context) -> DownTextView {
         let styler = loadDefaultDownStyler(context.environment.colorScheme)
         let downView = DownTextView(frame: .zero, styler: styler)
         downView.text = self.markdown
-        downView.textAlignment = .left
-        downView.isScrollEnabled = false
+        downView.textAlignment = NSTextAlignment.left
+        downView.isScrollEnabled = true
         downView.showsVerticalScrollIndicator = false
         downView.showsHorizontalScrollIndicator = false
         downView.isEditable = false
-        downView.backgroundColor = .clear
-        downView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        downView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        downView.backgroundColor = UIColor.clear
+        downView.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
+        downView.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
         return downView
     }
 
@@ -38,36 +38,34 @@ struct MarkdownRepresentable: ViewRepresentable {
     }
 
 #elseif os(macOS)
-    func makeNSView(context: Context) -> TextView {
+    func makeNSView(context: Context) -> DownTextView {
+        let styler = loadDefaultDownStyler(context.environment.colorScheme)
         let downView = DownTextView(frame: .zero, styler: styler)
         downView.string = self.markdown
         downView.isEditable = false
-        downView.backgroundColor = .clear
-        downView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        downView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        downView.backgroundColor = NSColor.clear
+        downView.setContentCompressionResistancePriority(NSLayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
+        downView.setContentCompressionResistancePriority(NSLayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
         return downView
     }
 
-    func updateNSView(_ nsView: NSTextView, context: Context) {
+    func updateNSView(_ nsView: DownTextView, context: Context) {
         nsView.styler = loadDefaultDownStyler(context.environment.colorScheme)
-        nsView.string = markdown    }
+        nsView.string = markdown
+    }
 #endif
 }
 
 public struct SwiftDownViewer: View {
 
-    @State var text: String
-
+    var text: String
+    
     public init(text: String) {
         self.text = text
     }
 
     public var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView(showsIndicators: false) {
-                MarkdownRepresentable(markdown: $text)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-            }
-        }
+        MarkdownRepresentable(markdown: text)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
     }
 }

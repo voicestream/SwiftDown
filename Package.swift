@@ -26,7 +26,7 @@ let package = Package(
       name: "SwiftDown",
       dependencies: ["Down"],
       exclude: ["../../SwiftDownDemo"],
-      resources: [.copy("Resources/Themes")]
+      resources: [.copy("Resources/Themes"), .process("Resources/Fonts")]
     ),
     .testTarget(
       name: "SwiftDownTests",

@@ -6,84 +6,89 @@
     },
     "version": "1.0",
     "editor": {
-        "backgroundColor": "#060606",
-        "tintColor": "#A1A8B5",
-        "cursorColor": "#A1A8B5"
+        "backgroundColor": "#141123",
+        "tintColor": "#FFFFFF",
+        "cursorColor": "#FFFFFF"
     },
     "styles": {
         "h1": {
-            "font": "HelveticaNeue-Bold",
+            "font": "LibreFranklin-ExtraBold",
             "color": "#FFFFFF",
             "size": 36
         },
         "h2": {
-            "font": "HelveticaNeue-Bold",
+            "font": "LibreFranklin-ExtraBold",
             "color": "#FFFFFF",
             "size": 28
         },
         "h3": {
-            "font": "HelveticaNeue-Bold",
+            "font": "LibreFranklin-ExtraBold",
             "color": "#FFFFFF",
             "size": 20
         },
         "h4": {
-            "font": "HelveticaNeue-Bold",
+            "font": "LibreFranklin-Bold",
             "color": "#FFFFFF",
             "size": 18
         },
         "h5": {
-            "font": "HelveticaNeue-SemiBold",
+            "font": "LibreFranklin-SemiBold",
             "color": "#FFFFFF",
             "size": 16
         },
         "h6": {
-            "font": "HelveticaNeue-Italic",
+            "font": "LibreFranklin-SemiBold",
             "color": "#FFFFFF",
             "size": 15,
         },
         "body": {
-            "font": "HelveticaNeue",
+            "font": "LibreFranklin-Regular",
             "size": 15,
             "color": "#FFFFFF"
         },
         "bold": {
-            "font": "HelveticaNeue-Bold",
-            "color": "#c60808"
+            "font": "LibreFranklin-Bold",
+            "color": "#e07a5f"
         },
         "italic": {
-            "font": "HelveticaNeue-Italic",
-            "color": "#ffa41d"
+            "font": "LibreFranklin-Italic",
+            "color": "#F2B635"
         },
         "link": {
-            "font": "HelveticaNeue",
-            "color": "#00B698"
+            "font": "LibreFranklin-Regular",
+            "color": "#119dd0"
         },
         "image": {
             "color": "#a66bff"
         },
         "inlineCode": {
             "font": "CourierNew",
-            "color": "#FFFFFF",
+            "color": "#b2675e",
             "size": 15
         },
         "codeBlock": {
             "font": "CourierNew",
-            "color": "#00B698",
+            "color": "#b2675e",
             "size": 15
         },
         "blockQuote": {
-            "font": "HelveticaNeue",
-            "color": "#8B949E"
+            "font": "LibreFranklin-LightItalic",
+            "color": "#B9B9C0",
+            "size": 15
         },
         "list": {
-            "font": "HelveticaNeue",
-            "color": "#838383"
+            "font": "LibreFranklin-Regular",
+            "color": "#09c8bd",
+            "size": 15
         },
         "quoteStripe": {
-            "color": "#00B698"
+            "color": "#09c8a9"
         },
         "codeBlockBackground": {
-            "color": "#161B22"
+            "color": "#1d1a2a"
+        },
+        "thematicBreak": {
+            "color": "1d1a2a"
         }
     }
 }
