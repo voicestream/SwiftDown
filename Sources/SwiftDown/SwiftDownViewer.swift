@@ -13,11 +13,11 @@ typealias ViewRepresentable = NSViewRepresentable
 #endif
 import Down
 
-public struct MarkdownRepresentable: ViewRepresentable {
+struct MarkdownRepresentable: ViewRepresentable {
     var markdown: String
 
 #if os(iOS)
-    public func makeUIView(context: Context) -> DownTextView {
+    func makeUIView(context: Context) -> DownTextView {
         let styler = loadDefaultDownStyler(context.environment.colorScheme)
         let downView = DownTextView(frame: .zero, styler: styler)
         downView.text = self.markdown
@@ -32,7 +32,7 @@ public struct MarkdownRepresentable: ViewRepresentable {
         return downView
     }
 
-    public func updateUIView(_ uiView: DownTextView, context: Context) {
+    func updateUIView(_ uiView: DownTextView, context: Context) {
         uiView.styler = loadDefaultDownStyler(context.environment.colorScheme)
         uiView.text = markdown
     }
