@@ -44,8 +44,8 @@ struct MarkdownRepresentable: ViewRepresentable {
         downView.string = self.markdown
         downView.isEditable = false
         downView.backgroundColor = NSColor.clear
-        downView.setContentCompressionResistancePriority(NSLayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
-        downView.setContentCompressionResistancePriority(NSLayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
+        downView.setContentCompressionResistancePriority(NSLayoutConstraint.Priority.defaultLow, for: NSLayoutConstraint.Orientation.horizontal)
+        downView.setContentCompressionResistancePriority(NSLayoutConstraint.Priority.defaultLow, for: NSLayoutConstraint.Orientation.vertical)
         return downView
     }
 
